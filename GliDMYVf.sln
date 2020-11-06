@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GliDMYVf", "GliDMYVf.vcxproj", "{E1B7C6D0-B1B3-4A6D-A77A-7641E85D1F24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1B7C6D0-B1B3-4A6D-A77A-7641E85D1F24}.Debug|x86.ActiveCfg = Debug|Win32
+		{E1B7C6D0-B1B3-4A6D-A77A-7641E85D1F24}.Debug|x86.Build.0 = Debug|Win32
+		{E1B7C6D0-B1B3-4A6D-A77A-7641E85D1F24}.Release|x86.ActiveCfg = Release|Win32
+		{E1B7C6D0-B1B3-4A6D-A77A-7641E85D1F24}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A28E2CF6-95AB-4FFD-9E60-D819F48C625E}
+	EndGlobalSection
+EndGlobal

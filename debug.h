@@ -1,0 +1,23 @@
+#pragma once
+
+#ifdef _DEBUG
+
+extern FILE *fDebugLog;
+
+void DebugInit();
+void DebugCleanup();
+
+#define debug_print(format, ...) do { if (fDebugLog) fprintf(fDebugLog, format, __VA_ARGS__); } while (0)
+#define debug_enter() debug_print("** Entering %s()\n", __func__)
+#define debug_leave() debug_print("** Leaving %s()\n", __func__)
+
+#else
+
+#define DebugInit()
+#define DebugCleanup()
+
+#define debug_print(format, ...)
+#define debug_enter()
+#define debug_leave()
+
+#endif
