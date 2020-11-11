@@ -38,18 +38,31 @@ typedef struct
 	float _float28; // ?
 } DEV_CAPS;
 
-// used in GLI_DRV_fn_lGetAllDisplayConfig
+// Gli property set function, used in GLI_DRV_fn_lGetAllDisplayConfig
 typedef int (*GliSet)(DWORD disp, DWORD dev, DWORD mode, const char *szAction, const void *value);
+
+// Common function, used in GLI_DRV_lSetCommonFct
+typedef int (*CommonFct)(void);
 
 
 //
 // EXPORTED FUNCTIONS
 //
 
-// called by GliDetectDll from sub 0x100014E0
-EXPORT int GLI_DRV_lGetDllInfo(const char *szType, void *lpDst);
+// called by GliDetectDll from 0x100014E0
 
-// called by GliDetectDll from sub 0x100014E0
-EXPORT int GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet);
+EXPORT BOOL GLI_DRV_lGetDllInfo(const char *szType, void *lpDst);
+EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet);
 
-//TODO: draw the rest of the fucking owl
+//
+// FUNCTION STUBS FOR Rayman2.exe
+//
+
+// called by Rayman2.exe from InitDisplay_ActualInit (0x00421670)
+
+EXPORT HRESULT GLI_DRV_xInitDriver(HWND hWnd, BOOL bFullscreen, int xRight, int yBottom, int lBitDepth);
+
+// called by Rayman2.exe from LoadGLILibrary (0x00421880)
+
+EXPORT BOOL GLI_DRV_lSetCommonData(const char *szName, void *value);
+EXPORT BOOL GLI_DRV_lSetCommonFct(const char *szName, CommonFct lpFn);

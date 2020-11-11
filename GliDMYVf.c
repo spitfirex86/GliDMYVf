@@ -28,10 +28,10 @@ void CopyString(char *dst, const char *src)
 //
 
 // Copies renderer info (first listbox in GxSetup) to specified memory address
-EXPORT int GLI_DRV_lGetDllInfo(const char *szType, void *lpDst)
+EXPORT BOOL GLI_DRV_lGetDllInfo(const char *szType, void *lpDst)
 {
 	debug_enter();
-	debug_print("GliDetectDll requested value '%s'\n", szType);
+	debug_print("Requested value '%s'\n", szType);
 
 	if (strcmp(szType, "Name") == 0)
 	{
@@ -51,17 +51,16 @@ EXPORT int GLI_DRV_lGetDllInfo(const char *szType, void *lpDst)
 	}
 	else
 	{
-		debug_print("Value %s unsupported, nothing returned\n", szType);
-		return 0;
+		debug_print("Value '%s' unsupported, nothing returned\n", szType);
+		return FALSE;
 	}
 
 	debug_leave();
-	// GliDetectDll expects return value 1 on success
-	return 1;
+	return TRUE;
 }
 
 // Sets capability flags and populates displays, devices and resolutions
-EXPORT int GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
+EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 {
 	debug_enter();
 
@@ -106,5 +105,34 @@ EXPORT int GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 	gliSet(disp, dev, 0, "dev_caps", &caps);
 
 	debug_leave();
-	return 1;
+	return TRUE;
+}
+
+//
+// FUNCTION STUBS FOR Rayman2.exe
+//
+
+EXPORT HRESULT GLI_DRV_xInitDriver(HWND hWnd, BOOL bFullscreen, int xRight, int yBottom, int lBitDepth)
+{
+	debug_enter();
+
+	// all default gli drivers do this, might be important?
+	ShowWindow(hWnd, SW_NORMAL);
+	UpdateWindow(hWnd);
+	SetFocus(hWnd);
+
+	debug_leave();
+	return 0;
+}
+
+EXPORT BOOL GLI_DRV_lSetCommonData(const char *szName, void *value)
+{
+	debug_fnprint("Got value, name: '%s', hex value: 0x%x\n", szName, (int)value);
+	return TRUE;
+}
+
+EXPORT BOOL GLI_DRV_lSetCommonFct(const char *szName, CommonFct lpFn)
+{
+	debug_fnprint("Got function, name: '%s', address: 0x%x\n", szName, (int)lpFn);
+	return TRUE;
 }
