@@ -9,6 +9,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     case DLL_PROCESS_ATTACH:
     	DebugInit();
 	    srand(time(0));
+    	
+    	DebugModuleInfo(hModule);
     	break;
     	
     case DLL_THREAD_ATTACH:
