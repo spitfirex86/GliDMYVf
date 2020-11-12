@@ -10,6 +10,7 @@ void DebugModuleInfo(HMODULE hDllModule);
 
 #define debug_print(format, ...) do { if (fDebugLog) fprintf(fDebugLog, format, __VA_ARGS__); } while (0)
 #define debug_fnprint(format, ...) debug_print("[%s] "format, __func__, __VA_ARGS__)
+#define debug_stub() debug_print("*** Stub called: %s()\n", __func__)
 #define debug_enter() debug_print("*** Entering %s()\n", __func__)
 #define debug_leave() debug_print("*** Leaving %s()\n", __func__)
 
@@ -21,6 +22,7 @@ void DebugModuleInfo(HMODULE hDllModule);
 
 #define debug_print(format, ...)
 #define debug_fnprint(format, ...)
+#define debug_stub()
 #define debug_enter()
 #define debug_leave()
 

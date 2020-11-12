@@ -108,22 +108,10 @@ EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 	return TRUE;
 }
 
+
 //
 // FUNCTION STUBS FOR Rayman2.exe
 //
-
-EXPORT HRESULT GLI_DRV_xInitDriver(HWND hWnd, BOOL bFullscreen, int xRight, int yBottom, int lBitDepth)
-{
-	debug_enter();
-
-	// all default gli drivers do this, might be important?
-	ShowWindow(hWnd, SW_NORMAL);
-	UpdateWindow(hWnd);
-	SetFocus(hWnd);
-
-	debug_leave();
-	return 0;
-}
 
 EXPORT BOOL GLI_DRV_lSetCommonData(const char *szName, void *value)
 {
