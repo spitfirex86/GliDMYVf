@@ -13,6 +13,8 @@ void DebugInit()
 	{
 		setvbuf(fDebugLog, NULL, _IONBF, 0);
 	}
+
+	MessageBox(NULL, "If you want to attach a debugger, do it now.\nPress OK to continue.", "Spitfire's Advice", MB_OK | MB_ICONASTERISK);
 }
 
 void DebugCleanup()

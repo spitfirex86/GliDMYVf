@@ -77,13 +77,7 @@ EXPORT void GLI_DRV_vDoOpaqueTextureSelection(int a1)
 	debug_stub();
 }
 
-EXPORT int GLI_DRV_fnl_EnumModes(char *szDrvDspName /*lpContext*/, char *szDevName)
-{
-	debug_stub();
-	return 0;
-}
-
-EXPORT HANDLE GLI_DRV_hChangeMode(int bFullscreen, int xRight, int yBottom, int bitDepth)
+EXPORT HANDLE GLI_DRV_hChangeMode(BOOL bFullscreen, int xRight, int yBottom, int bitDepth)
 {
 	debug_stub();
 	return NULL;

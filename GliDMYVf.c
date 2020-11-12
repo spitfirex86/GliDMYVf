@@ -9,11 +9,16 @@ const char *szDesc = "Spitfire's GLI Driver Test";
 const char *szVer = "1.0.0.0";
 const int code = 5;
 
+
+// Function pointers
+
+int (*fnAddDiplayMode)(BOOL bFullscreen, int x, int y, int lBitDepth) = NULL;
+
+
 int RandInt(int min, int max)
 {
 	return rand() % (max - min) + min;
 }
-
 
 void CopyString(char *dst, const char *src)
 {
@@ -87,15 +92,15 @@ EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 	mode = gliSet(disp, dev, 0, "modeadd", NULL);
 	gliSet(disp, dev, mode, "modefs", 1);
 	gliSet(disp, dev, mode, "modebpp", 16);
-	gliSet(disp, dev, mode, "modew", 1234);
-	gliSet(disp, dev, mode, "modeh", 5678);
+	gliSet(disp, dev, mode, "modew", 800);
+	gliSet(disp, dev, mode, "modeh", 600);
 	debug_print("Added mode: %i\n", mode);
 
 	// device capabilities
-	caps.VideoMemLocal = 1415;
-	caps.VideoMemNonLocal = 9265;
-	caps.TextureMem = 3589;
-	caps.TextureMaxSize = 7932;
+	caps.VideoMemLocal = 0x4000;
+	caps.VideoMemNonLocal = 0x2000;
+	caps.TextureMem = 0x8000;
+	caps.TextureMaxSize = 0x400;
 
 	// random flags just for fun
 	// NOTE: rng is initialized in DllMain
@@ -122,5 +127,22 @@ EXPORT BOOL GLI_DRV_lSetCommonData(const char *szName, void *value)
 EXPORT BOOL GLI_DRV_lSetCommonFct(const char *szName, CommonFct lpFn)
 {
 	debug_fnprint("Got function, name: '%s', address: 0x%x\n", szName, (int)lpFn);
+
+	// temporary, needed for EnumModes
+	if (!strcmp(szName, "AddDisplayMode"))
+	{
+		fnAddDiplayMode = (int(*)(BOOL,int,int,int))lpFn;
+	}
+	
+	return TRUE;
+}
+
+EXPORT BOOL GLI_DRV_fnl_EnumModes(char *szDrvDspName /*lpContext*/, char *szDevName)
+{
+	debug_stub();
+
+	// temporary
+	fnAddDiplayMode(TRUE, 800, 600, 16);
+
 	return TRUE;
 }

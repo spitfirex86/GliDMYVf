@@ -50,14 +50,15 @@ typedef int (*CommonFct)(void);
 //
 
 // called by GliDetectDll from 0x100014E0
-
 EXPORT BOOL GLI_DRV_lGetDllInfo(const char *szType, void *lpDst);
 EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet);
 
-// called by Rayman2.exe from LoadGLILibrary (0x00421880)
-
+// called by Rayman2.exe from LoadGLILibrary [0x00421880]
 EXPORT BOOL GLI_DRV_lSetCommonData(const char *szName, void *value);
 EXPORT BOOL GLI_DRV_lSetCommonFct(const char *szName, CommonFct lpFn);
+
+// called by Rayman2.exe from InitDisplay [0x00422460]
+EXPORT BOOL GLI_DRV_fnl_EnumModes(char *szDrvDspName /*lpContext*/, char *szDevName);
 
 
 //
@@ -81,8 +82,7 @@ EXPORT void GLI_DRV_vUnLoadTextures();
 EXPORT int GLI_DRV_lGetSizeOfTexture(void *a1);
 EXPORT void GLI_DRV_vDoOpaqueTextureSelection(int a1);
 
-EXPORT int GLI_DRV_fnl_EnumModes(char *szDrvDspName /*lpContext*/, char *szDevName);
-EXPORT HANDLE /*HRESULT?*/ GLI_DRV_hChangeMode(int bFullscreen, int xRight, int yBottom, int bitDepth);
+EXPORT HANDLE /*HRESULT?*/ GLI_DRV_hChangeMode(BOOL bFullscreen, int xRight, int yBottom, int bitDepth);
 
 EXPORT BOOL GLI_DRV_bWindowedModeIsOptimized();
 EXPORT void GLI_DRV_vOptimizedWindowedMode();
