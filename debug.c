@@ -1,7 +1,7 @@
+#ifdef _DEBUG
+
 #include "framework.h"
 #include "debug.h"
-
-#ifdef _DEBUG
 
 FILE *fDebugLog;
 const char *szLogFile = "GliDMYLog.log";
@@ -14,6 +14,14 @@ void DebugInit()
 		setvbuf(fDebugLog, NULL, _IONBF, 0);
 	}
 
+	if (AllocConsole())
+	{
+		FILE *fDummy;
+		freopen_s(&fDummy, "CONIN$", "r", stdin);
+		freopen_s(&fDummy, "CONOUT$", "w", stderr);
+		freopen_s(&fDummy, "CONOUT$", "w", stdout);
+	}
+
 	MessageBox(NULL, "If you want to attach a debugger, do it now.\nPress OK to continue.", "Spitfire's Advice", MB_OK | MB_ICONASTERISK);
 }
 
@@ -23,6 +31,26 @@ void DebugCleanup()
 	{
 		fclose(fDebugLog);
 	}
+	
+	FreeConsole();
+}
+
+void DebugPrint(const char *fmt, ...)
+{
+	va_list args;
+	
+	if (fDebugLog)
+	{
+		// print to file
+		va_start(args, fmt);
+		vfprintf(fDebugLog, fmt, args);
+		va_end(args);
+	}
+
+	// print to console
+	va_start(args, fmt);
+	vprintf(fmt, args);
+	va_end(args);
 }
 
 void DebugPrintModuleNameAddress(HMODULE hModule)
@@ -33,17 +61,17 @@ void DebugPrintModuleNameAddress(HMODULE hModule)
 	GetModuleFileName(hModule, szModuleName, MAX_PATH);
 	pBaseName = (strrchr(szModuleName, '\\') + 1);
 
-	debug_print("\tModule name: %s\n\tBase address: 0x%x\n\n", pBaseName, (int)hModule);
+	DebugPrint("\tModule name: %s\n\tBase address: 0x%x\n\n", pBaseName, (int)hModule);
 }
 
 void DebugModuleInfo(HMODULE hDllModule)
 {
 	HMODULE hMainModule = GetModuleHandle(NULL);
 	
-	debug_print("*** DLL module info:\n");
+	DebugPrint("*** DLL module info:\n");
 	DebugPrintModuleNameAddress(hDllModule);
 	
-	debug_print("*** Main module info:\n");
+	DebugPrint("*** Main module info:\n");
 	DebugPrintModuleNameAddress(hMainModule);
 }
 

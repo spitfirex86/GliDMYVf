@@ -12,7 +12,7 @@ int RandInt(int min, int max)
 
 void CopyString(char *dst, const char *src)
 {
-	debug_print("Copying string '%s' to address 0x%x\n", src, (int)dst);
+	DebugPrint("Copying string '%s' to address 0x%x\n", src, (int)dst);
 	const size_t len = strlen(src) + 1;
 	strcpy_s(dst, len, src);
 }
@@ -25,8 +25,8 @@ void CopyString(char *dst, const char *src)
 // Copies renderer info (first listbox in GxSetup) to specified memory address
 EXPORT BOOL GLI_DRV_lGetDllInfo(const char *szType, void *lpDst)
 {
-	debug_enter();
-	debug_print("Requested value '%s'\n", szType);
+	DebugEnter();
+	DebugPrint("Requested value '%s'\n", szType);
 
 	if (strcmp(szType, "Name") == 0)
 	{
@@ -46,18 +46,18 @@ EXPORT BOOL GLI_DRV_lGetDllInfo(const char *szType, void *lpDst)
 	}
 	else
 	{
-		debug_print("Value '%s' unsupported, nothing returned\n", szType);
+		DebugPrint("Value '%s' unsupported, nothing returned\n", szType);
 		return FALSE;
 	}
 
-	debug_leave();
+	DebugLeave();
 	return TRUE;
 }
 
 // Sets capability flags and populates displays, devices and resolutions
 EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 {
-	debug_enter();
+	DebugEnter();
 
 	int disp, dev, mode;
 	DEV_CAPS caps = { 0 };
@@ -70,13 +70,13 @@ EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 	disp = gliSet(0, 0, 0, GS_ADD_DISPLAY, NULL);
 	gliSet(disp, 0, 0, GS_DISPLAY_NAME, "DispName");
 	gliSet(disp, 0, 0, GS_DISPLAY_DESC, "Display Description");
-	debug_print("Added display: %i\n", disp);
+	DebugPrint("Added display: %i\n", disp);
 
 	// device info
 	dev = gliSet(disp, 0, 0, GS_ADD_DEVICE, NULL);
 	gliSet(disp, dev, 0, GS_DEVICE_NAME, "DevName");
 	gliSet(disp, dev, 0, GS_DEVICE_DESC, "Device Description");
-	debug_print("Added device: %i\n", dev);
+	DebugPrint("Added device: %i\n", dev);
 
 	// display mode (resolution)
 	mode = gliSet(disp, dev, 0, GS_ADD_MODE, NULL);
@@ -84,7 +84,7 @@ EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 	gliSet(disp, dev, mode, GS_MODE_BITDEPTH, 16);
 	gliSet(disp, dev, mode, GS_MODE_WIDTH, 800);
 	gliSet(disp, dev, mode, GS_MODE_HEIGHT, 600);
-	debug_print("Added mode: %i\n", mode);
+	DebugPrint("Added mode: %i\n", mode);
 
 	// device capabilities
 	caps.VideoMemLocal = 0x4000;
@@ -99,7 +99,7 @@ EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 
 	gliSet(disp, dev, 0, "dev_caps", &caps);
 
-	debug_leave();
+	DebugLeave();
 	return TRUE;
 }
 
@@ -110,13 +110,13 @@ EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 
 EXPORT BOOL GLI_DRV_lSetCommonData(const char *szName, void *value)
 {
-	debug_fnprint("Got value, name: '%s', hex value: 0x%x\n", szName, (int)value);
+	DebugFnPrint("Got value, name: '%s', hex value: 0x%x\n", szName, (int)value);
 	return TRUE;
 }
 
 EXPORT BOOL GLI_DRV_lSetCommonFct(const char *szName, CommonFct lpFn)
 {
-	debug_fnprint("Got function, name: '%s', address: 0x%x\n", szName, (int)lpFn);
+	DebugFnPrint("Got function, name: '%s', address: 0x%x\n", szName, (int)lpFn);
 
 	// temporary, needed for EnumModes
 	if (!strcmp(szName, "AddDisplayMode"))
@@ -129,7 +129,7 @@ EXPORT BOOL GLI_DRV_lSetCommonFct(const char *szName, CommonFct lpFn)
 
 EXPORT BOOL GLI_DRV_fnl_EnumModes(char *szDrvDspName /*lpContext*/, char *szDevName)
 {
-	debug_stub();
+	DebugStub();
 
 	// temporary
 	fnAddDiplayMode(TRUE, 800, 600, 16);
