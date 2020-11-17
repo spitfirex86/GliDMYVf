@@ -1,17 +1,7 @@
-#include "framework.h"
 #include "GliDMYVf.h"
 #include "debug.h"
 
-// Renderer info
-
-const char *szName = "GLIDummy";
-const char *szDesc = "Spitfire's GLI Driver Test";
-const char *szVer = "1.0.0.0";
-const int code = 5;
-
-
-// Function pointers
-
+// AddDisplayMode function pointer
 int (*fnAddDiplayMode)(BOOL bFullscreen, int x, int y, int lBitDepth) = NULL;
 
 
@@ -23,7 +13,7 @@ int RandInt(int min, int max)
 void CopyString(char *dst, const char *src)
 {
 	debug_print("Copying string '%s' to address 0x%x\n", src, (int)dst);
-	const int len = strlen(src) + 1;
+	const size_t len = strlen(src) + 1;
 	strcpy_s(dst, len, src);
 }
 
@@ -40,19 +30,19 @@ EXPORT BOOL GLI_DRV_lGetDllInfo(const char *szType, void *lpDst)
 
 	if (strcmp(szType, "Name") == 0)
 	{
-		CopyString(lpDst, szName);
+		CopyString(lpDst, GLI_NAME);
 	}
 	else if (strcmp(szType, "Description") == 0)
 	{
-		CopyString(lpDst, szDesc);
+		CopyString(lpDst, GLI_DESC);
 	}
 	else if (strcmp(szType, "Version") == 0)
 	{
-		CopyString(lpDst, szVer);
+		CopyString(lpDst, GLI_VERSION);
 	}
 	else if (strcmp(szType, "Code") == 0)
 	{
-		*(DWORD*)lpDst = code;
+		*(DWORD*)lpDst = GLI_CODE;
 	}
 	else
 	{
@@ -77,23 +67,23 @@ EXPORT BOOL GLI_DRV_fn_lGetAllDisplayConfig(GliSet gliSet)
 	gliSet(0, 0, 0, "dll_bmp", 0);
 
 	// display info
-	disp = gliSet(0, 0, 0, "dispadd", NULL);
-	gliSet(disp, 0, 0, "dispname", "DispName");
-	gliSet(disp, 0, 0, "dispdesc", "Display Description");
+	disp = gliSet(0, 0, 0, GS_ADD_DISPLAY, NULL);
+	gliSet(disp, 0, 0, GS_DISPLAY_NAME, "DispName");
+	gliSet(disp, 0, 0, GS_DISPLAY_DESC, "Display Description");
 	debug_print("Added display: %i\n", disp);
 
 	// device info
-	dev = gliSet(disp, 0, 0, "dev_add", NULL);
-	gliSet(disp, dev, 0, "dev_name", "DevName");
-	gliSet(disp, dev, 0, "dev_desc", "Device Description");
+	dev = gliSet(disp, 0, 0, GS_ADD_DEVICE, NULL);
+	gliSet(disp, dev, 0, GS_DEVICE_NAME, "DevName");
+	gliSet(disp, dev, 0, GS_DEVICE_DESC, "Device Description");
 	debug_print("Added device: %i\n", dev);
 
 	// display mode (resolution)
-	mode = gliSet(disp, dev, 0, "modeadd", NULL);
-	gliSet(disp, dev, mode, "modefs", 1);
-	gliSet(disp, dev, mode, "modebpp", 16);
-	gliSet(disp, dev, mode, "modew", 800);
-	gliSet(disp, dev, mode, "modeh", 600);
+	mode = gliSet(disp, dev, 0, GS_ADD_MODE, NULL);
+	gliSet(disp, dev, mode, GS_MODE_FULLSCREEN, 1);
+	gliSet(disp, dev, mode, GS_MODE_BITDEPTH, 16);
+	gliSet(disp, dev, mode, GS_MODE_WIDTH, 800);
+	gliSet(disp, dev, mode, GS_MODE_HEIGHT, 600);
 	debug_print("Added mode: %i\n", mode);
 
 	// device capabilities
@@ -131,7 +121,7 @@ EXPORT BOOL GLI_DRV_lSetCommonFct(const char *szName, CommonFct lpFn)
 	// temporary, needed for EnumModes
 	if (!strcmp(szName, "AddDisplayMode"))
 	{
-		fnAddDiplayMode = (int(*)(BOOL,int,int,int))lpFn;
+		fnAddDiplayMode = lpFn;
 	}
 	
 	return TRUE;

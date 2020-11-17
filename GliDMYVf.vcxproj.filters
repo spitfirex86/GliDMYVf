@@ -27,6 +27,9 @@
     <ClInclude Include="texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="devinfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.c">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stubs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="consts.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

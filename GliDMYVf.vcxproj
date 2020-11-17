@@ -154,11 +154,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="debug.h" />
+    <ClInclude Include="devinfo.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GliDMYVf.h" />
     <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="consts.c" />
     <ClCompile Include="debug.c" />
     <ClCompile Include="dllmain.c" />
     <ClCompile Include="GliDMYVf.c" />
