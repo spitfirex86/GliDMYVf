@@ -1,5 +1,7 @@
 #pragma once
 
+#include "texture.h"
+
 #define EXPORT __declspec(dllexport)
 
 typedef enum
@@ -79,7 +81,7 @@ EXPORT void GLI_DRV_vFlipDeviceWithSyncro();
 
 EXPORT void GLI_DRV_vDownLoadTextures(int a1, int a2, int a3);
 EXPORT void GLI_DRV_vUnLoadTextures();
-EXPORT int GLI_DRV_lGetSizeOfTexture(void *a1);
+EXPORT int GLI_DRV_lGetSizeOfTexture(TEXTURE_DATA *a1);
 EXPORT void GLI_DRV_vDoOpaqueTextureSelection(int a1);
 
 EXPORT HANDLE /*HRESULT?*/ GLI_DRV_hChangeMode(BOOL bFullscreen, int xRight, int yBottom, int bitDepth);

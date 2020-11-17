@@ -66,7 +66,7 @@ EXPORT void GLI_DRV_vUnLoadTextures()
 	debug_stub();
 }
 
-EXPORT int GLI_DRV_lGetSizeOfTexture(void *a1)
+EXPORT int GLI_DRV_lGetSizeOfTexture(TEXTURE_DATA *a1)
 {
 	debug_stub();
 	return 0;
