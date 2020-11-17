@@ -86,6 +86,7 @@ EXPORT HANDLE /*HRESULT?*/ GLI_DRV_hChangeMode(BOOL bFullscreen, int xRight, int
 
 EXPORT BOOL GLI_DRV_bWindowedModeIsOptimized();
 EXPORT void GLI_DRV_vOptimizedWindowedMode();
+EXPORT void GLI_DRV_vNonOptimizedWindowedMode();
 EXPORT BOOL GLI_DRV_bPrepareForGliWindowed(HWND hWnd);
 EXPORT void GLI_DRV_vPrepareForGliFullScreen(HWND hWnd);
 EXPORT void GLI_DRV_vActivateGli(HWND hWnd, BOOL a2);

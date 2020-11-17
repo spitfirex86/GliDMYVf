@@ -94,6 +94,11 @@ EXPORT void GLI_DRV_vOptimizedWindowedMode()
 	debug_stub();
 }
 
+EXPORT void GLI_DRV_vNonOptimizedWindowedMode()
+{
+	debug_stub();
+}
+
 EXPORT BOOL GLI_DRV_bPrepareForGliWindowed(HWND hWnd)
 {
 	debug_stub();
